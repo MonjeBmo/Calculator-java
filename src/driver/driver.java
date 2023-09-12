@@ -6,6 +6,8 @@ public class driver {
 
     public static double calculate_expression(String exp) {
         exp = exp.replaceAll("π", String.valueOf(Math.PI));
+        exp = exp.replaceAll("Sin", "s");
+        exp = exp.replaceAll("Cos", "c");
         return evalExp(exp);
     }
 
@@ -36,6 +38,19 @@ public class driver {
                     choose_operation(numbers, operators);
                 }
                 operators.push(c);
+            } else if (c == 's' || c == 'c') {
+                StringBuilder function = new StringBuilder();
+                while (i < exp.length() && Character.isLetter(exp.charAt(i))) {
+                    function.append(exp.charAt(i));
+                    i++;
+                }
+                i--;
+
+                if (function.toString().equals("s")) {
+                    operators.push('s'); // Indica función seno
+                } else if (function.toString().equals("c")) {
+                    operators.push('c'); // Indica función coseno
+                }
             }
         }
 
@@ -51,21 +66,37 @@ public class driver {
             return 1;
         } else if (operator == 'x' || operator == '/') {
             return 2;
+        } else if (operator == 's' || operator == 'c') {
+            return 3; // Prioridad más alta para funciones trigonométricas
         }
         return 0;
     }
 
     private static void choose_operation(Stack<Double> numbers, Stack<Character> operators) {
         char operator = operators.pop();
-        double num2 = numbers.pop();
-        double num1 = numbers.pop();
-        double result = switch (operator) {
-            case '+' -> num1 + num2;
-            case '-' -> num1 - num2;
-            case 'x' -> num1 * num2;
-            case '/' -> num1 / num2;
-            default -> 0;
-        };
-        numbers.push(result);
+        if (operator == 's') {
+            // Calcular seno
+            double num = numbers.pop();
+            double result = Math.sin((num) * (Math.PI / 180));
+
+            numbers.push(result);
+        } else if (operator == 'c') {
+            // Calcular coseno
+            double num = numbers.pop();
+            double result = Math.cos((num) * (Math.PI / 180));
+            numbers.push(result);
+        } else {
+            double num2 = numbers.pop();
+            double num1 = numbers.pop();
+            double result = switch (operator) {
+                case '+' -> num1 + num2;
+                case '-' -> num1 - num2;
+                case 'x' -> num1 * num2;
+                case '/' -> num1 / num2;
+                default -> 0;
+            };
+
+            numbers.push(result);
+        }
     }
 }
