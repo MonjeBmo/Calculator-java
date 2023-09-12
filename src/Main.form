@@ -90,7 +90,7 @@
           </hspacer>
           <component id="ba8f9" class="javax.swing.JButton" binding="btn_equals">
             <constraints>
-              <grid row="6" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="6" column="0" row-span="1" col-span="7" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-16777216"/>
@@ -339,6 +339,26 @@
               </component>
             </children>
           </grid>
+          <component id="7c2f4" class="javax.swing.JButton" binding="btn_porcentaje">
+            <constraints>
+              <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-16777216"/>
+              <foreground color="-1"/>
+              <text value="%"/>
+            </properties>
+          </component>
+          <component id="34dab" class="javax.swing.JButton" binding="btn_fac">
+            <constraints>
+              <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-16777216"/>
+              <foreground color="-1"/>
+              <text value="!"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <vspacer id="3fd1e">

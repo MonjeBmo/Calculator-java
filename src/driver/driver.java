@@ -11,6 +11,8 @@ public class driver {
         exp = exp.replaceAll("√", "q"); // Raíz cuadrada = sqrt = q
         exp = exp.replaceAll("x10\\^", "p"); // Multiplicar por 10 = x10 = p
         exp = exp.replaceAll("log", "l"); // Logaritmo = log = l
+        exp = exp.replaceAll("!", "f"); // Factorial = ! = f
+        exp = exp.replaceAll("%", "o"); // Porcentaje = % = o
         return evalExp(exp);
     }
 
@@ -41,7 +43,7 @@ public class driver {
                     choose_operation(numbers, operators);
                 }
                 operators.push(c);
-            } else if (c == 's' || c == 'c' || c == 'q' || c == 'p' || c == 'l') {
+            } else if (c == 's' || c == 'c' || c == 'q' || c == 'p' || c == 'l' || c == 'f' || c == 'o') {
                 StringBuilder function = new StringBuilder();
                 while (i < exp.length() && Character.isLetter(exp.charAt(i))) {
                     function.append(exp.charAt(i));
@@ -56,6 +58,8 @@ public class driver {
                     case "q" -> operators.push('q'); // Indica función raíz cuadrada
                     case "p" -> operators.push('p'); // Indica función multiplicar por x10^
                     case "l" -> operators.push('l'); // Indica función logaritmo
+                    case "f" -> operators.push('f'); // Indica función factorial
+                    case "o" -> operators.push('o'); // Indica función porcentaje
                 }
 
 
@@ -78,8 +82,17 @@ public class driver {
             return 3; // Prioridad más alta para funciones trigonométricas
         } else if (operator == 'q' || operator == 'p' || operator == 'l') {
             return 4; // Prioridad más alta para funciones trigonométricas
+        } else if (operator == 'f' || operator == 'o') {
+            return 5; // Prioridad más alta para funciones trigonométricas
         }
         return 0;
+    }
+
+    private static double factorial(double num) {
+        if (num == 0) {
+            return 1;
+        }
+        return num * factorial(num - 1);
     }
 
     private static void choose_operation(Stack<Double> numbers, Stack<Character> operators) {
@@ -110,7 +123,17 @@ public class driver {
             double num = numbers.pop();
             double result = Math.log(num);
             numbers.push(result);
-        } else {
+        } else if (operator == 'f') {
+            //calcular factorial
+            double num = numbers.pop();
+            double result = factorial(num);
+            numbers.push(result);
+        } else if(operator == 'o'){
+            //calcular porcentaje
+            double num = numbers.pop();
+            double result = num / 100;
+            numbers.push(result);
+        }else {
             double num2 = numbers.pop();
             double num1 = numbers.pop();
             double result = switch (operator) {

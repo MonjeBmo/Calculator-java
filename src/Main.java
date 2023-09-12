@@ -38,6 +38,8 @@ public class Main extends JFrame {
     private JLabel lb_result;
     private JLabel lb_result_info;
     private JPanel jpanel_result;
+    private JButton btn_porcentaje;
+    private JButton btn_fac;
     //</editor-fold>
 
 
@@ -86,6 +88,8 @@ public class Main extends JFrame {
         btn_sin.addActionListener(buttonClickListener);
         btn_cos.addActionListener(buttonClickListener);
         btn_sqrt.addActionListener(buttonClickListener);
+        btn_fac.addActionListener(buttonClickListener);
+        btn_porcentaje.addActionListener(buttonClickListener);
         btn_cls.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
