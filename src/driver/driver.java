@@ -8,6 +8,9 @@ public class driver {
         exp = exp.replaceAll("π", String.valueOf(Math.PI));
         exp = exp.replaceAll("Sin", "s");
         exp = exp.replaceAll("Cos", "c");
+        exp = exp.replaceAll("√", "q"); // Raíz cuadrada = sqrt = q
+        exp = exp.replaceAll("x10\\^", "p"); // Multiplicar por 10 = x10 = p
+        exp = exp.replaceAll("log", "l"); // Logaritmo = log = l
         return evalExp(exp);
     }
 
@@ -38,7 +41,7 @@ public class driver {
                     choose_operation(numbers, operators);
                 }
                 operators.push(c);
-            } else if (c == 's' || c == 'c') {
+            } else if (c == 's' || c == 'c' || c == 'q' || c == 'p' || c == 'l') {
                 StringBuilder function = new StringBuilder();
                 while (i < exp.length() && Character.isLetter(exp.charAt(i))) {
                     function.append(exp.charAt(i));
@@ -46,11 +49,16 @@ public class driver {
                 }
                 i--;
 
-                if (function.toString().equals("s")) {
-                    operators.push('s'); // Indica función seno
-                } else if (function.toString().equals("c")) {
-                    operators.push('c'); // Indica función coseno
+                // Agregar la función a la pila de operadores
+                switch (function.toString()) {
+                    case "s" -> operators.push('s'); // Indica función seno
+                    case "c" -> operators.push('c'); // Indica función coseno
+                    case "q" -> operators.push('q'); // Indica función raíz cuadrada
+                    case "p" -> operators.push('p'); // Indica función multiplicar por x10^
+                    case "l" -> operators.push('l'); // Indica función logaritmo
                 }
+
+
             }
         }
 
@@ -68,6 +76,8 @@ public class driver {
             return 2;
         } else if (operator == 's' || operator == 'c') {
             return 3; // Prioridad más alta para funciones trigonométricas
+        } else if (operator == 'q' || operator == 'p' || operator == 'l') {
+            return 4; // Prioridad más alta para funciones trigonométricas
         }
         return 0;
     }
@@ -78,12 +88,27 @@ public class driver {
             // Calcular seno
             double num = numbers.pop();
             double result = Math.sin((num) * (Math.PI / 180));
-
             numbers.push(result);
         } else if (operator == 'c') {
             // Calcular coseno
             double num = numbers.pop();
             double result = Math.cos((num) * (Math.PI / 180));
+            numbers.push(result);
+        } else if (operator == 'q') {
+            // Calcular raíz cuadrada
+            double num = numbers.pop();
+            double result = Math.sqrt(num);
+            numbers.push(result);
+        } else if (operator == 'p') {
+            //calcular multiplicar por 10
+            double num1 = numbers.pop();
+            double num2 = numbers.pop();
+            double result = num1 * Math.pow(10, num2);
+            numbers.push(result);
+        } else if (operator == 'l') {
+            //calcular logaritmo
+            double num = numbers.pop();
+            double result = Math.log(num);
             numbers.push(result);
         } else {
             double num2 = numbers.pop();

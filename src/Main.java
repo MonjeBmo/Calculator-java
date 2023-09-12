@@ -60,7 +60,7 @@ public class Main extends JFrame {
                 if (buttonText.equals("Sin") || buttonText.equals("Cos") || buttonText.equals("√")) {
                     txt_info.setText(txt_info.getText() + buttonText + "("); // Agregar el texto al campo txt_info
                 } else if (buttonText.equals("x10")) {
-                    txt_info.setText(txt_info.getText()+buttonText+"^(");
+                    txt_info.setText(txt_info.getText()+buttonText+"^");
                 } else {
                     txt_info.setText(txt_info.getText() + buttonText); // Agregar el texto al campo txt_info
                 }
@@ -92,7 +92,6 @@ public class Main extends JFrame {
                 txt_info.setText("");
             }
         });
-
         btn_x10.addActionListener(buttonClickListener);
         btn_log.addActionListener(buttonClickListener);
         btn_parent_right.addActionListener(buttonClickListener);
