@@ -101,7 +101,7 @@ public class Main extends JFrame {
         btn_equals.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                lb_result.setText(String.valueOf(driver.calculateExpression(txt_info.getText())));
+                lb_result.setText(String.valueOf(driver.calculate_expression(txt_info.getText())));
             }
         });
 
